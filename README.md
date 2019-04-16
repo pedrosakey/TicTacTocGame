@@ -1,68 +1,100 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tic-Tac-Toe Game
+![version](https://img.shields.io/badge/React-blue.svg?maxAge=2592000)
 
-## Available Scripts
 
-In the project directory, you can run:
+This is an introduction to React. This is a tutorial you can find it. I add some annotations a modifications
 
-### `npm start`
+![The game](https://drive.google.com/uc?id=1Dybo0BfqkwhY7MgYT2oMW6ZCOTjhUyFx)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Create React App
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```
+npx create-react-app my-app
+cd my-app
+npm start
+```
 
-### `npm test`
+## Setup for the tutorial
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Remove files inside the src folder. Add `index.js` and `index.css`. Add these three lines to `index.js`.
 
-### `npm run build`
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Overview
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### The game
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> Tic-tac-toe (American English), noughts and crosses (British English), or Xs and Os is a paper-and-pencil game for two players, X and O, who take turns marking the spaces in a 3×3 grid. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.
 
-### `npm run eject`
+### Components
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![Components](https://drive.google.com/uc?id=1E-7D6KbsmrDUj8aAeR13DDHcfawsF7Qe)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Passing Data Through Props
+Commnication between parent (Board) and child (Square)
+- Pass a prop  (Board) `return <Square value={i} />;`
+- Read prop (Square) `{this.props.value}`
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Making an Interactive component
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Fill with X when we click in the component 
+```
+<button className="square" onClick={function() { alert('click'); }}>
+        {this.props.value}
+```
 
-## Learn More
+We want the Square component to “remember” that it got clicked, and fill it with an “X” mark. To “remember” things, components use **state**.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Add constructor
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+ constructor(props){
+        super(props);
+        this.state = {
+            value:null,
+        };
+    }
+```
 
-### Code Splitting
+- Change Square’s render method to display the current state’s value
+    `{this.state.value}`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### Developers Tools
+The React Devtools extension for Chrome and Firefox lets you inspect a React component tree with your browser’s developer tools.
 
-### Analyzing the Bundle Size
+### Completing the game
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+#### Lifting State Up
 
-### Making a Progressive Web App
+> To collect data from multiple children, or to have two child components communicate with each other, you need to declare the shared state in their parent component instead. The parent component can pass the state back down to the children by using props; this keeps the child components in sync with each other and with the parent component.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+The state of a child component is inside the parent component.
 
-### Advanced Configuration
+> 1. The onClick prop on the built-in DOM button component tells React to set up a click event listener.
+> 2. When the button is clicked, React will call the onClick event handler that is defined in Square’s render() method.
+> 3. This event handler calls this.props.onClick(). The Square’s onClick prop was specified by the Board.
+> 4. Since the Board passed onClick={() => this.handleClick(i)} to Square, the Square calls this.handleClick(i) when clicked.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+#### Why Immutability is important
 
-### Deployment
+#### Function Components
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+Function components are a simpler way to write components that only contain a render method.
 
-### `npm run build` fails to minify
+#### Taking Turns
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### Calulating winner
+
+## Improvements and Modifications 
+
+## References
+
+- Tic-tac-toe on [Wikipedia](https://en.wikipedia.org/wiki/Tic-tac-toe)
+- [React beginner tutorial](https://reactjs.org/tutorial/tutorial.html#declaring-a-winner)
+
+## License
+MIT
